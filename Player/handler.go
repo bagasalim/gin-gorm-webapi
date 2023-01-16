@@ -73,8 +73,21 @@ func (h *playerHandler) CreatePlayer(c *gin.Context) {
 		return
 
 	}
-
 	player, err := h.playerService.Create(playersRequest)
+	// if err != nil {
+	// 	if _, ok := err.(*MyErrorType); ok {
+	// 		c.JSON(http.StatusBadRequest, gin.H{
+	// 			"errors": err.Error(),
+	// 		})
+	// 		return
+	// 	}
+	// 	c.JSON(http.StatusInternalServerError, gin.H{
+	// 		"errors": "Internal server error",
+	// 	})
+	// 	return
+	// }
+
+	// player, err := h.playerService.Create(playersRequest)
 
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{

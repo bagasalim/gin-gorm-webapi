@@ -16,6 +16,14 @@ func NewService(repository Repository) *service {
 	return &service{repository}
 }
 
+type MyErrorType struct {
+	message string
+}
+
+func (e MyErrorType) Error() string {
+	return e.message
+}
+
 func (s *service) FindAll() ([]Players, error) {
 	return s.repository.FindAll()
 }
@@ -26,10 +34,11 @@ func (s *service) FindById(ID int) (Players, error) {
 }
 
 func (s *service) Create(playersRequest PlayersRequest) (Players, error) {
+
 	age, _ := playersRequest.Age.Int64()
 	speed, _ := playersRequest.Speed.Int64()
 	power, _ := playersRequest.Power.Int64()
-	players := Players{
+	player := Players{
 		Name:        playersRequest.Name,
 		Club:        playersRequest.Club,
 		Nationality: playersRequest.Nationality,
@@ -39,13 +48,13 @@ func (s *service) Create(playersRequest PlayersRequest) (Players, error) {
 		Power:       int(power),
 	}
 
-	newPlayers, err := s.repository.Create(players)
+	newPlayer, err := s.repository.Create(player)
 
-	return newPlayers, err
+	return newPlayer, err
 }
 
 func (s *service) Update(ID int, playersRequest PlayersRequest) (Players, error) {
-	player, err := s.repository.FindById(ID)
+	player, _ := s.repository.FindById(ID)
 
 	age, _ := playersRequest.Age.Int64()
 	speed, _ := playersRequest.Speed.Int64()
@@ -65,7 +74,7 @@ func (s *service) Update(ID int, playersRequest PlayersRequest) (Players, error)
 }
 
 func (s *service) Delete(ID int) (Players, error) {
-	player, err := s.repository.FindById(ID)
+	player, _ := s.repository.FindById(ID)
 	newPlayers, err := s.repository.Delete(player)
 	return newPlayers, err
 }

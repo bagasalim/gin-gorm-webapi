@@ -22,10 +22,10 @@ func main() {
 	v1 := router.Group("/v1")
 
 	v1.GET("/players", playerHandler.GetPlayers)
-	v1.GET("/player/:id", playerHandler.GetPlayerById)
-	v1.POST("/player", playerHandler.CreatePlayer)
-	v1.PUT("/player/:id", playerHandler.UpdatePlayer)
-	v1.DELETE("/player/:id", playerHandler.DeletePlayer)
+	v1.GET("/players/:id", playerHandler.GetPlayerById)
+	v1.POST("/players", playerHandler.CreatePlayer)
+	v1.PUT("/players/:id", playerHandler.UpdatePlayer)
+	v1.DELETE("/players/:id", playerHandler.DeletePlayer)
 
 	router.Run(":8888")
 }
